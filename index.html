@@ -871,10 +871,9 @@ Contributed to end-to-end development, including frontend design, backend logic,
             <h3 class="h3 form-title">Contact Form</h3>
 
             <form
-              action="assets/php/data.php"
+              id="contactForm"
               class="form"
               data-form
-              method="post"
             >
               <div class="input-wrapper">
                 <input
@@ -883,7 +882,6 @@ Contributed to end-to-end development, including frontend design, backend logic,
                   class="form-input"
                   placeholder="Full name"
                   required
-                  data-form-input
                 />
 
                 <input
@@ -892,7 +890,6 @@ Contributed to end-to-end development, including frontend design, backend logic,
                   class="form-input"
                   placeholder="Email address"
                   required
-                  data-form-input
                 />
               </div>
 
@@ -901,10 +898,9 @@ Contributed to end-to-end development, including frontend design, backend logic,
                 class="form-input"
                 placeholder="Your Message"
                 required
-                data-form-input
               ></textarea>
 
-              <button class="form-btn" type="submit" disabled data-form-btn>
+              <button class="form-btn" type="submit">
                 <ion-icon name="paper-plane"></ion-icon>
                 <span>Send Message</span>
               </button>
@@ -913,6 +909,32 @@ Contributed to end-to-end development, including frontend design, backend logic,
         </article>
       </div>
     </main>
+
+
+    <script>
+  const form = document.getElementById("contactForm");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = new URLSearchParams(formData);
+
+    fetch("https://script.google.com/macros/s/AKfycbzQJxK8KuZYm23y0Nbzm_jHGGViH31jgP-3CHdrOovyvwOUHUr3ZcOR72QvQhbGPyeT/exec", {
+      method: "POST",
+      body: data,
+    })
+      .then((res) => res.text())
+      .then((data) => {
+        alert("Message sent successfully!");
+        form.reset();
+      })
+      .catch((err) => {
+        alert("Error sending message.");
+        console.error(err);
+      });
+  });
+</script>
 
     <!--
     - custom js link
